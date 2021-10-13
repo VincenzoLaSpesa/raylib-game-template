@@ -14,6 +14,84 @@ _Copyright (c) 2014-2021 Ramon Santamaria ([@raysan5](https://twitter.com/raysan
 
 -----------------------------------
 
+## Building on windows
+
+### Setup your building environment
+
+You will need:
+
+-   Visual Studio, even the Community version (previously known as Express)
+    -   Download it from here https://visualstudio.microsoft.com/it/vs/express/
+
+- Cmake, a build automation tool
+    -  Download it from here https://cmake.org/ or
+    -  Install it with chocolatey (https://chocolatey.org/install) or
+    -  let visual studio install it ( and let me know if it works...)
+
+- Vcpkg, C/C++ dependency system
+  - Install it from here and follow the instruction in the readme https://github.com/microsoft/vcpkg 
+
+### Get Raylib and run the template
+
+Install Raylib with vcpkg:
+
+    .\vcpkg.exe install raylib:x64-windows
+
+Clone this repository somewhere, open the `build.bat` and set the toolchain with the one inside your vcpkg folder
+
+    set TOOLCHAIN=somewhere_in_your_computer\vcpkg\scripts\buildsystems\vcpkg.cmake
+
+Also set the target to your installed version of visual studio ( or whatever target you want). Some targets are:
+
+    Visual Studio 16 2019
+    Visual Studio 15 2017
+    Visual Studio 14 2015
+    Visual Studio 12 2013
+
+Run `build.bat` and you are ready to go, a Visual Studio solution should be ready in the build folder inside the repository.
+
+Add your files inside the src folder and edit the `./src/CMakeLists.txt` accordingly.
+
+## Building on Linux
+
+### Setup your building environment
+
+#### Get the compiling tools
+- On Debian and debian-like 
+    
+        sudo apt-get update
+        sudo apt-get install build-essential tar curl zip unzip libasound2-dev mesa-common-dev libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev
+
+- On CentOs 
+
+        sudo yum install centos-release-scl devtoolset-7
+        scl enable devtoolset-7 bash
+
+and some version of libasound2-dev, mesa-common-dev, libx11-dev, libxrandr-dev, libxi-dev, xorg-dev, libgl1-mesa-dev, libglu1-mesa-dev as well
+
+
+#### Get vcpkg
+
+    git clone https://github.com/microsoft/vcpkg
+    ./vcpkg/bootstrap-vcpkg.sh
+
+### Get Raylib and run the template
+
+Install Raylib with vcpkg:
+
+    .\vcpkg install raylib:x64-linux
+
+Clone this repository somewhere, open the `build.sh` and set the toolchain with the one inside your vcpkg folder
+
+    TOOLCHAIN=somewhere_in_your_computer/vcpkg/scripts/buildsystems/vcpkg.cmake
+
+Run `build.sh` and you are ready to go, a makefile should be ready in the build folder inside the repository.
+
+Add your files inside the src folder and edit the `./src/CMakeLists.txt` accordingly.
+
+** THE REST OF THE FILE IS THE ACTUAL TEMPLATE **
+
+
 ## $(Game Title)
 
 ![$(Game Title)](screenshots/screenshot000.png "$(Game Title)")
