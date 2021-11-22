@@ -1,3 +1,4 @@
+# inner file
 set(BaseDirectory "${CMAKE_BINARY_DIR}/bin/")
 
 # Runnable projects

@@ -1,0 +1,7 @@
+[requires]
+	raylib/3.5.0 
+
+[generators]
+	cmake
+	cmake_find_package
+#	cmake_paths

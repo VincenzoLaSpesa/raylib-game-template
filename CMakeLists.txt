@@ -8,6 +8,13 @@ else()
 	MESSAGE(STATUS "Using toolchain in ${CMAKE_TOOLCHAIN_FILE} ")
 endif()
 
+if(EXISTS "ConanWrapper.cmake")
+	include("ConanWrapper.cmake")
+else()
+	MESSAGE( STATUS "Conan is not used")
+endif()
+
+
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 	set(OBT_64 ON)
 	MESSAGE( STATUS "Running on x64")
@@ -17,9 +24,17 @@ else()
 endif()
 
 MESSAGE( STATUS "Looking for libs ... " )
-	find_package(raylib REQUIRED)
 	find_package(Threads REQUIRED )
-	MESSAGE(STATUS "--> Raylib is in "${RAYLIB_LIBRARIES})
+	find_package(raylib REQUIRED)
+	# just in case the name was not uppercase ( Conan... )
+	if(NOT DEFINED RAYLIB_LIBRARIES)
+		set(RAYLIB_LIBRARIES ${raylib_LIBRARIES})
+	endif()
+	if(NOT DEFINED RAYLIB_INCLUDE_DIRS)
+		set(RAYLIB_INCLUDE_DIRS ${raylib_INCLUDE_DIRS})
+	endif()
+
+	MESSAGE(STATUS "--> Raylib is in Libs[${RAYLIB_LIBRARIES}] Includes[${RAYLIB_INCLUDE_DIRS}]")
 	MESSAGE(STATUS "--> Pthread in " ${CMAKE_THREAD_LIBS_INIT})#pthread library
 	MESSAGE(STATUS "--> ldl in " ${CMAKE_DL_LIBS})#dl libs
 
