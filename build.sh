@@ -6,5 +6,5 @@ mkdir build
 cd build
 conan install ..
 cd ..
-cmake -B ./build -S . -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN
+cmake -B ./build -S .
 cmake --build ./build
