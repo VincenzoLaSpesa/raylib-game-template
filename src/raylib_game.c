@@ -1,6 +1,6 @@
 /*******************************************************************************************
 *
-*   raylib Game Template
+*   raylib game template
 *
 *   <Game title>
 *   <Game description>
@@ -21,14 +21,15 @@
 
 //----------------------------------------------------------------------------------
 // Shared Variables Definition (global)
+// NOTE: Those variables are shared between modules through screens.h
 //----------------------------------------------------------------------------------
-GameScreen currentScreen = 0;
+GameScreen currentScreen = LOGO;
 Font font = { 0 };
 Music music = { 0 };
 Sound fxCoin = { 0 };
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Local Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
 static const int screenWidth = 800;
 static const int screenHeight = 450;
@@ -38,7 +39,7 @@ static float transAlpha = 0.0f;
 static bool onTransition = false;
 static bool transFadeOut = false;
 static int transFromScreen = -1;
-static int transToScreen = -1;
+static GameScreen transToScreen = UNKNOWN;
 
 //----------------------------------------------------------------------------------
 // Local Functions Declaration
@@ -99,7 +100,7 @@ int main(void)
         default: break;
     }
 
-    // Unload all global loaded data (i.e. fonts) here!
+    // Unload global data loaded
     UnloadFont(font);
     UnloadMusicStream(music);
     UnloadSound(fxCoin);
@@ -115,9 +116,8 @@ int main(void)
 //----------------------------------------------------------------------------------
 // Module specific Functions Definition
 //----------------------------------------------------------------------------------
-
 // Change to next screen, no transition
-static void ChangeToScreen(int screen)
+static void ChangeToScreen(GameScreen screen)
 {
     // Unload current screen
     switch (currentScreen)
@@ -143,7 +143,7 @@ static void ChangeToScreen(int screen)
 }
 
 // Request transition to next screen
-static void TransitionToScreen(int screen)
+static void TransitionToScreen(GameScreen screen)
 {
     onTransition = true;
     transFadeOut = false;
@@ -152,7 +152,7 @@ static void TransitionToScreen(int screen)
     transAlpha = 0.0f;
 }
 
-// Update transition effect
+// Update transition effect (fade-in, fade-out)
 static void UpdateTransition(void)
 {
     if (!transFadeOut)
@@ -202,7 +202,7 @@ static void UpdateTransition(void)
             transFadeOut = false;
             onTransition = false;
             transFromScreen = -1;
-            transToScreen = -1;
+            transToScreen = UNKNOWN;
         }
     }
 }
